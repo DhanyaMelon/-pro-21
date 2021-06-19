@@ -6,14 +6,11 @@ const Body = Matter.Body;
 
 var ball;
 var groundObj;
-
-function preload()
-{
-	
-}
+var radius=40;
+var world;
 
 function setup() {
-	createCanvas(800, 600);
+	createCanvas(1600, 700);
 
 
 	engine = Engine.create();
@@ -27,12 +24,12 @@ function setup() {
 		density:1.2
 	}
 
-	ball = Bodies.circle(200,40,12,ball_options);
+	ball = Bodies.circle(260,200,radius/2,ball_options);
 	World.add(world,ball);
 
-	groundObj=new Ground(width/2,570,width,20);
-	leftside=new Ground(width/2,370,30,width);
-	rightside=new Ground(width/2,370,40,width);
+	groundObj=new Ground(width/2,670,width,20);
+	leftside=new Ground(1100,600,20,120);
+	rightside=new Ground(1350,600,20,120);
 
 	Engine.run(engine);
   
@@ -44,15 +41,16 @@ function draw() {
   background(0);
   
   groundObj.display();
-
-  ellipse(ball.position.x,ball.position.y,30);
+	leftside.display();
+	rightside.display();
+  ellipse(ball.position.x,ball.position.y,radius,radius);
  
 }
 function keyPressed()
 {
-  if(keyCode==RIGHT_ARROW)
+  if(keyCode==UP_ARROW)
     {
-      Matter.Body.applyForce(ball,{x:0,y:0},{x:0.05,y:0});
+      Matter.Body.applyForce(ball,ball.position,{x:85,y:-85});
     }
 }
 
